@@ -1,17 +1,18 @@
 services:
   postgres:
-    image: postgres:18.2
+    image: postgis/postgis:16-3.4
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: green_corridor
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=greencorridor
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
+      interval: 10s
       timeout: 5s
       retries: 5
 
@@ -45,7 +46,7 @@ services:
     build:
       context: ./backend
     environment:
-      DATABASE_URL: "postgresql+psycopg2://postgres:admin123@postgres:5432/green_corridor"
+      DATABASE_URL: "postgresql+psycopg2://postgres:postgres@postgres:5432/greencorridor"
       RABBITMQ_URL: "pyamqp://guest:guest@rabbitmq:5672//"
       REDIS_URL: "redis://redis:6379/0"
       MINIO_ENDPOINT: "minio:9000"
@@ -69,24 +70,23 @@ services:
   worker:
     build:
       context: ./backend
+      dockerfile: Dockerfile  # Use the same Dockerfile
+    command: ["celery", "-A", "app.worker", "worker", "--loglevel=info"]
     environment:
-      DATABASE_URL: "postgresql+psycopg2://postgres:admin123@postgres:5432/green_corridor"
-      RABBITMQ_URL: "pyamqp://guest:guest@rabbitmq:5672//"
-      REDIS_URL: "redis://redis:6379/0"
-      MINIO_ENDPOINT: "minio:9000"
-      MINIO_ACCESS_KEY: "minioadmin"
-      MINIO_SECRET_KEY: "minioadmin123"
-      MINIO_BUCKET: "uploads"
-    command: ["celery", "-A", "app.tasks.celery_app", "worker", "--loglevel=info", "-Q", "yolo_queue"]
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/greencorridor
     depends_on:
-      - backend
       - rabbitmq
       - redis
-      - minio
+      - postgres
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
 
   flower:
     image: mher/flower
-    command: ["--broker=amqp://guest:guest@rabbitmq:5672//"]
+    command: celery --broker=amqp://guest:guest@rabbitmq:5672// flower
     ports:
       - "5555:5555"
     depends_on:

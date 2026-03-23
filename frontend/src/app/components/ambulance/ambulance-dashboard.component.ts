@@ -17,11 +17,11 @@ export class AmbulanceDashboardComponent implements OnInit {
   }
 
   fetchAmbulanceRequests(): void {
-    this.apiService.getAmbulanceRequests().subscribe(
-      (data: any[]) => {
-        this.ambulanceRequests = data;
+    this.apiService.getAmbulanceNotifications().subscribe(
+      (data: any) => {
+        this.ambulanceRequests = Array.isArray(data) ? data : [];
       },
-      (error) => {
+      (error: any) => {
         console.error('Error fetching ambulance requests', error);
       }
     );
@@ -29,11 +29,11 @@ export class AmbulanceDashboardComponent implements OnInit {
 
   acknowledgeRequest(requestId: string): void {
     this.apiService.acknowledgeAmbulanceRequest(requestId).subscribe(
-      (response) => {
+      (response: any) => {
         console.log('Request acknowledged', response);
-        this.fetchAmbulanceRequests(); // Refresh the list
+        this.fetchAmbulanceRequests();
       },
-      (error) => {
+      (error: any) => {
         console.error('Error acknowledging request', error);
       }
     );
@@ -41,12 +41,14 @@ export class AmbulanceDashboardComponent implements OnInit {
 
   sendTrafficSignal(requestId: string): void {
     this.apiService.sendTrafficSignal(requestId).subscribe(
-      (response) => {
+      (response: any) => {
         console.log('Traffic signal sent', response);
       },
-      (error) => {
+      (error: any) => {
         console.error('Error sending traffic signal', error);
       }
     );
+  }
+}
   }
 }

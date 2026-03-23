@@ -1,17 +1,19 @@
-export class TrafficControlComponent {
-  ambulanceRequestId: string;
-  location: string;
-  videoUpload: File | null;
-  normalTrafficVideo: File | null;
-  detectionResult: string;
+import { Component } from '@angular/core';
+import { ApiService } from '../../services/api.service';
 
-  constructor() {
-    this.ambulanceRequestId = '';
-    this.location = '';
-    this.videoUpload = null;
-    this.normalTrafficVideo = null;
-    this.detectionResult = '';
-  }
+@Component({
+  selector: 'app-traffic-control',
+  templateUrl: './traffic-control.component.html',
+  styleUrls: ['./traffic-control.component.css']
+})
+export class TrafficControlComponent {
+  ambulanceRequestId: string = '';
+  location: string = '';
+  videoUpload: File | null = null;
+  normalTrafficVideo: File | null = null;
+  detectionResult: string = '';
+
+  constructor(private apiService: ApiService) {}
 
   onVideoUpload(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -28,11 +30,20 @@ export class TrafficControlComponent {
   }
 
   analyzeVideos(): void {
-    // Simulate video analysis
-    if (this.videoUpload && this.normalTrafficVideo) {
-      // Fake detection logic
-      const isAmbulanceDetected = Math.random() > 0.5; // Randomly simulate detection
-      this.detectionResult = isAmbulanceDetected ? 'Green signal given' : 'No action';
+    if (this.videoUpload) {
+      const formData = new FormData();
+      formData.append('video', this.videoUpload);
+
+      this.apiService.uploadVideo(formData).subscribe(
+        (response: any) => {
+          this.detectionResult = response.message || 'Video processed successfully';
+          console.log('Video analysis result:', response);
+        },
+        (error: any) => {
+          this.detectionResult = 'Error processing video';
+          console.error('Error uploading video:', error);
+        }
+      );
     }
   }
 }

@@ -9,32 +9,47 @@ import { ApiService } from '../../services/api.service';
 export class HospitalDashboardComponent implements OnInit {
   notifications: any[] = [];
   patientData: any[] = [];
+  uploadedFile: File | null = null;
+  responseMessage: string = '';
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getNotifications();
-    this.getPatientData();
   }
 
   getNotifications(): void {
     this.apiService.getHospitalNotifications().subscribe(
-      (data) => {
-        this.notifications = data;
+      (data: any) => {
+        this.notifications = Array.isArray(data) ? data : [];
       },
-      (error) => {
+      (error: any) => {
         console.error('Error fetching notifications', error);
       }
     );
   }
 
-  getPatientData(): void {
-    this.apiService.getPatientData().subscribe(
-      (data) => {
-        this.patientData = data;
+  onFileChange(event: any): void {
+    this.uploadedFile = event.target.files[0];
+  }
+
+  onSubmit(): void {
+    if (!this.uploadedFile) {
+      this.responseMessage = 'Please select a file';
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.uploadedFile);
+
+    this.apiService.uploadFile(formData).subscribe(
+      (response: any) => {
+        this.responseMessage = 'File uploaded successfully!';
+        console.log('File uploaded:', response);
       },
-      (error) => {
-        console.error('Error fetching patient data', error);
+      (error: any) => {
+        this.responseMessage = 'Error uploading file';
+        console.error('Error uploading file:', error);
       }
     );
   }

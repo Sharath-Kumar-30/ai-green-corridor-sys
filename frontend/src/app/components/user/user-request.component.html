@@ -1,13 +1,13 @@
 <div>
   <h2>User Request Component</h2>
-  <form (ngSubmit)="onSubmit()" #userRequestForm="ngForm">
+  <form (ngSubmit)="onSubmit()">
     <div>
       <label for="location">Location:</label>
-      <input type="text" id="location" name="location" ngModel required>
+      <input type="text" id="location" name="location" [(ngModel)]="location" required>
     </div>
     <div>
       <label for="ambulanceType">Ambulance Type:</label>
-      <select id="ambulanceType" name="ambulanceType" ngModel required>
+      <select id="ambulanceType" name="ambulanceType" required>
         <option value="basic">Basic</option>
         <option value="advanced">Advanced</option>
       </select>
@@ -16,7 +16,7 @@
       <label for="files">Upload Files:</label>
       <input type="file" id="files" (change)="onFileChange($event)" multiple>
     </div>
-    <button type="submit" [disabled]="!userRequestForm.form.valid">Request Ambulance</button>
+    <button type="submit">Request Ambulance</button>
   </form>
   <div *ngIf="responseMessage">
     <p>{{ responseMessage }}</p>

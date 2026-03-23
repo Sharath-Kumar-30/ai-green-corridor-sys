@@ -13,25 +13,26 @@ class TrafficControlResponse(BaseModel):
     message: str
     green_signal: bool
 
+# Mock data
+traffic_updates = []
+
 @router.post("/traffic-control", response_model=TrafficControlResponse)
 async def traffic_control(request: TrafficControlRequest):
-    # Simulate video detection logic
     if request.video_file and request.ambulance_request_id:
-        # Here you would normally call the YOLO model for detection
-        # For demo purposes, we will fake the detection
-        detected = True  # Simulating detection of ambulance
-
-        if detected:
-            return TrafficControlResponse(
-                status="success",
-                message="Ambulance detected, green signal given.",
-                green_signal=True
-            )
-        else:
-            return TrafficControlResponse(
-                status="failure",
-                message="No ambulance detected.",
-                green_signal=False
-            )
+        detected = True
+        traffic_updates.append({
+            "ambulance_request_id": request.ambulance_request_id,
+            "detected": detected,
+            "green_signal": True
+        })
+        return TrafficControlResponse(
+            status="success",
+            message="Ambulance detected, green signal given.",
+            green_signal=True
+        )
     else:
         raise HTTPException(status_code=400, detail="Invalid request data")
+
+@router.get("/status", response_model=List[dict])
+async def get_traffic_updates():
+    return traffic_updates

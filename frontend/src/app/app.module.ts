@@ -2,30 +2,27 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-
-import { UserComponent } from './components/user/user.component';
-import { AmbulanceComponent } from './components/ambulance/ambulance.component';
-import { HospitalComponent } from './components/hospital/hospital.component';
-import { TrafficComponent } from './components/traffic/traffic.component';
-
-const routes: Routes = [];
+import { UserRequestComponent } from './components/user/user-request.component';
+import { AmbulanceDashboardComponent } from './components/ambulance/ambulance-dashboard.component';
+import { HospitalDashboardComponent } from './components/hospital/hospital-dashboard.component';
+import { TrafficControlComponent } from './components/traffic/traffic-control.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
-    AmbulanceComponent,
-    HospitalComponent,
-    TrafficComponent
+    UserRequestComponent,
+    AmbulanceDashboardComponent,
+    HospitalDashboardComponent,
+    TrafficControlComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

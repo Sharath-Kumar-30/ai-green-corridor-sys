@@ -8,17 +8,25 @@ class PatientData(BaseModel):
     request_id: str
     symptoms: str
     location: str
-    documents: List[str]  # List of document URLs
+    documents: List[str] = []
 
 class HospitalNotification(BaseModel):
     request_id: str
     status: str
     message: str
 
+# Mock data
+hospital_notifications = [
+    {"request_id": "1", "status": "pending", "message": "Patient incoming"}
+]
+
 @router.post("/notify", response_model=HospitalNotification)
 async def notify_hospital(patient_data: PatientData):
-    # Here you would typically send a notification to the hospital
-    # For demo purposes, we will just return a success message
+    hospital_notifications.append({
+        "request_id": patient_data.request_id,
+        "status": "success",
+        "message": "Hospital notified successfully."
+    })
     return HospitalNotification(
         request_id=patient_data.request_id,
         status="success",
@@ -27,10 +35,12 @@ async def notify_hospital(patient_data: PatientData):
 
 @router.get("/status/{request_id}", response_model=HospitalNotification)
 async def get_status(request_id: str):
-    # Here you would typically check the status of the request
-    # For demo purposes, we will return a dummy status
     return HospitalNotification(
         request_id=request_id,
         status="pending",
         message="Waiting for hospital response."
     )
+
+@router.get("/notifications", response_model=List[HospitalNotification])
+async def get_notifications():
+    return [HospitalNotification(request_id=n["request_id"], status=n["status"], message=n["message"]) for n in hospital_notifications]
