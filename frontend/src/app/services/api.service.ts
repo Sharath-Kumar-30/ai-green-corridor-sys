@@ -42,7 +42,7 @@ export class ApiService {
   }
 
   getHospitalNotifications(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/hospital/status/1`);
+    return this.http.get(`${this.baseUrl}/hospital/notifications`);
   }
 
   uploadVideo(data: FormData): Observable<any> {
