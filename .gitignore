@@ -1,0 +1,121 @@
+# ========================
+# Node.js / Angular
+# ========================
+
+node_modules/
+dist/
+.angular/
+.angular-cache/
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular build files
+out-tsc/
+tmp/
+.temp/
+
+# ========================
+# Python
+# ========================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Python build files
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ========================
+# Poetry
+# ========================
+
+poetry.lock.old
+
+# ========================
+# Environment Variables
+# ========================
+
+.env
+.env.*
+*.env
+
+# ========================
+# Database Files
+# ========================
+
+*.db
+*.sqlite3
+
+# ========================
+# Docker
+# ========================
+
+docker-compose.override.yml
+
+# ========================
+# IDE Files
+# ========================
+
+.vscode/
+.idea/
+
+# ========================
+# OS Files
+# ========================
+
+.DS_Store
+Thumbs.db
+
+# ========================
+# Logs
+# ========================
+
+logs/
+*.log
+
+# ========================
+# Temporary Files
+# ========================
+
+tmp/
+temp/
+.cache/
+
+# ========================
+# Test Output
+# ========================
+
+coverage/
+htmlcov/
+
+# ========================
+# Jupyter Notebook
+# ========================
+
+.ipynb_checkpoints/
+
+# ========================
+# Git
+# ========================
+

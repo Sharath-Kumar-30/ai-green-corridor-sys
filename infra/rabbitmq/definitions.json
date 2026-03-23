@@ -1,0 +1,79 @@
+{
+  "rabbit_version": "3.8.0",
+  "users": [
+    {"name":"guest","password":"guest","tags":""}
+  ],
+  "vhosts": [ {"name":"/"} ],
+  "queues": [
+    {"name":"yolo_queue","vhost":"/","durable":true}
+  ],
+  "policies": [],
+  "parameters": [],
+  "exchanges": []
+}
+{
+  "rabbit_version": "3.8.9",
+  "users": [
+    {
+      "name": "guest",
+      "password": "guest",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "queues": [
+    {
+      "name": "ambulance_requests",
+      "durable": true,
+      "arguments": {}
+    },
+    {
+      "name": "traffic_notifications",
+      "durable": true,
+      "arguments": {}
+    },
+    {
+      "name": "hospital_notifications",
+      "durable": true,
+      "arguments": {}
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "notifications",
+      "type": "topic",
+      "durable": true,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "notifications",
+      "destination": "ambulance_requests",
+      "routing_key": "ambulance.request"
+    },
+    {
+      "source": "notifications",
+      "destination": "traffic_notifications",
+      "routing_key": "traffic.notification"
+    },
+    {
+      "source": "notifications",
+      "destination": "hospital_notifications",
+      "routing_key": "hospital.notification"
+    }
+  ]
+}

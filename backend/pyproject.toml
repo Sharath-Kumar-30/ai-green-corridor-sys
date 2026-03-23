@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "green-corridor-backend"
+version = "0.1.0"
+description = "Backend for AI green corridor demo"
+authors = ["demo"]
+
+[tool.poetry.dependencies]
+python = "3.14.*"
+fastapi = "^0.95.0"
+uvicorn = {extras=["standard"], version="^0.22.0"}
+SQLAlchemy = "^2.0.20"
+psycopg2-binary = "^2.9"
+alembic = "^1.11.1"
+pydantic = "^1.10.9"
+celery = "^5.3.2"
+redis = "^4.5.0"
+minio = "^7.1.4"
+python-multipart = "^0.0.6"
+requests = "^2.31.0"
+
+[tool.poetry.dev-dependencies]
+httpx = "^0.19.0"
+black = "^21.12b0"
+isort = "^5.10.1"
+mypy = "^0.910"
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

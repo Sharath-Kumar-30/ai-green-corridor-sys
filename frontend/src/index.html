@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Green Corridor Demo</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+  </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Based Green Corridor System for Ambulances</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>AI Based Green Corridor System for Ambulances</h1>
+    </header>
+    <main>
+        <section id="user-request">
+            <h2>User Request</h2>
+            <form>
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+                
+                <label for="ambulance-request">Request Ambulance:</label>
+                <button type="submit">Request</button>
+            </form>
+        </section>
+        <section id="ambulance-dashboard">
+            <h2>Ambulance Dashboard</h2>
+            <div id="ambulance-info">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </section>
+        <section id="traffic-control">
+            <h2>Traffic Control</h2>
+            <form>
+                <label for="video-upload">Upload Traffic Video:</label>
+                <input type="file" id="video-upload" name="video-upload" accept="video/*">
+                <button type="submit">Analyze</button>
+            </form>
+            <div id="traffic-analysis-result">
+                <!-- Analysis results will be displayed here -->
+            </div>
+        </section>
+        <section id="hospital-dashboard">
+            <h2>Hospital Dashboard</h2>
+            <div id="hospital-info">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 AI Based Green Corridor System</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>

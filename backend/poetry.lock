@@ -1,0 +1,98 @@
+# Contents of /ai-green-corridor-sys/ai-green-corridor-sys/backend/poetry.lock
+
+[[package]]
+name = "alembic"
+version = "1.7.7"
+description = "A database migration tool for SQLAlchemy."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "fastapi"
+version = "0.95.2"
+description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "minio"
+version = "7.1.0"
+description = "MinIO Client SDK for Python."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "psycopg2"
+version = "2.9.3"
+description = "PostgreSQL database adapter for Python."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "pydantic"
+version = "1.10.2"
+description = "Data validation and settings management using Python type annotations."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "python-multipart"
+version = "0.0.6"
+description = "Multipart form data parser for Python."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "redis"
+version = "4.5.4"
+description = "Python client for Redis."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "celery"
+version = "5.2.7"
+description = "Distributed Task Queue."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "uvicorn"
+version = "0.22.0"
+description = "The lightning-fast ASGI server."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "sqlalchemy"
+version = "1.4.41"
+description = "Database toolkit and ORM for Python."
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = ">=3.7,<4.0"
+content-hash = "f8c2f4c3c1c3e1c0e1c3f8c2f4c3c1c3e1c0e1c3f8c2f4c3c1c3e1c0e1c3f8c2"
+
+[metadata.files]
+alembic = []
+fastapi = []
+minio = []
+psycopg2 = []
+pydantic = []
+python-multipart = []
+redis = []
+celery = []
+uvicorn = []
+sqlalchemy = []

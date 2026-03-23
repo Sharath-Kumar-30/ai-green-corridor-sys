@@ -1,0 +1,15 @@
+fastapi>=0.95.0
+uvicorn[standard]>=0.22.0
+SQLAlchemy>=2.0
+psycopg2-binary>=2.9
+alembic>=1.11
+pydantic>=1.10
+celery>=5.3
+redis>=4.5
+minio>=7.0
+python-multipart>=0.0.6
+requests>=2.31
+aiofiles>=23.1
+pillow>=10.0
+pytest>=7.0
+httpx>=0.24

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Based Green Corridor System for Ambulances - Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+        }
+        .feature {
+            margin: 10px 0;
+        }
+        .code {
+            background-color: #34495e;
+            color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>AI Based Green Corridor System for Ambulances - Demo</h1>
+
+    <div class="section">
+        <h2>Project Overview</h2>
+        <p>This project aims to create an AI-enabled healthcare service that facilitates the rapid movement of ambulances through traffic using a green corridor system. The system includes various screens for users, ambulance teams, traffic control, and hospitals.</p>
+    </div>
+
+    <div class="section">
+        <h2>Features</h2>
+        <div class="feature">
+            <h3>User Screen</h3>
+            <p>Users can:</p>
+            <ul>
+                <li>Request an ambulance</li>
+                <li>Share their location</li>
+                <li>Upload pictures and PDFs</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>Ambulance/Emergency Response Teams Screen</h3>
+            <p>Teams can:</p>
+            <ul>
+                <li>Receive notifications of ambulance requests</li>
+                <li>Acknowledge requests and send notifications back to users</li>
+                <li>Notify traffic control teams</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>Traffic Control Screen</h3>
+            <p>Traffic control can:</p>
+            <ul>
+                <li>Receive notifications and vague paths for ambulances</li>
+                <li>Upload videos for fake video detection</li>
+                <li>Receive green signals for traffic junctions</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>Hospital Screen</h3>
+            <p>Hospitals can:</p>
+            <ul>
+                <li>Receive notifications about incoming patients</li>
+                <li>View patient symptoms and prepare in advance</li>
+                <li>Access uploaded PDFs and images</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Architecture and Flow of Services</h2>
+        <p>The system is built using a microservices architecture with the following components:</p>
+        <ul>
+            <li><strong>Frontend:</strong> Angular application for user interaction.</li>
+            <li><strong>Backend:</strong> FastAPI application handling business logic and API endpoints.</li>
+            <li><strong>Database:</strong> PostgreSQL for data storage.</li>
+            <li><strong>Message Broker:</strong> RabbitMQ for communication between services.</li>
+            <li><strong>Object Storage:</strong> MinIO for storing uploaded files.</li>
+            <li><strong>Task Queue:</strong> Celery for background processing.</li>
+            <li><strong>Video Detection:</strong> YOLOv5 for detecting ambulance traffic scenarios.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Endpoints</h2>
+        <p>The following are the main API endpoints:</p>
+        <ul>
+            <li><strong>Users:</strong> 
+                <div class="code">POST /api/v1/users/request-ambulance</div>
+            </li>
+            <li><strong>Ambulance:</strong> 
+                <div class="code">GET /api/v1/ambulance/notifications</div>
+            </li>
+            <li><strong>Traffic Control:</strong> 
+                <div class="code">POST /api/v1/traffic/notify</div>
+            </li>
+            <li><strong>Hospital:</strong> 
+                <div class="code">GET /api/v1/hospital/notifications</div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>How to Demo</h2>
+        <p>To demonstrate the system:</p>
+        <ol>
+            <li>Start the Docker containers using the provided <code>docker-compose.yml</code> file.</li>
+            <li>Access the frontend application in a web browser.</li>
+            <li>Simulate a user requesting an ambulance.</li>
+            <li>Show the ambulance team's response and traffic control notifications.</li>
+            <li>Demonstrate the hospital's preparation for incoming patients.</li>
+            <li>Upload videos for traffic detection and show the fake detection results.</li>
+        </ol>
+    </div>
+
+</body>
+</html>

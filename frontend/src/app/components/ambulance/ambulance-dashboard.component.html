@@ -1,0 +1,44 @@
+<div>
+  <h1>Ambulance Dashboard</h1>
+  <div class="ambulance-request">
+    <h2>Ambulance Request Details</h2>
+    <div>
+      <label for="requestId">Request ID:</label>
+      <span id="requestId">{{ requestId }}</span>
+    </div>
+    <div>
+      <label for="location">Location:</label>
+      <span id="location">{{ location }}</span>
+    </div>
+    <div>
+      <label for="status">Status:</label>
+      <span id="status">{{ status }}</span>
+    </div>
+  </div>
+
+  <div class="video-upload">
+    <h2>Upload Traffic Videos</h2>
+    <form (submit)="onSubmit()">
+      <div>
+        <label for="videoFile">Select Video:</label>
+        <input type="file" id="videoFile" (change)="onFileChange($event)" accept="video/*" required />
+      </div>
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+
+  <div class="detection-result">
+    <h2>Detection Result</h2>
+    <div *ngIf="detectionResult">
+      <p *ngIf="detectionResult.detected">🚦 Green Signal Given</p>
+      <p *ngIf="!detectionResult.detected">🚫 No Action Required</p>
+    </div>
+  </div>
+
+  <div class="map">
+    <h2>Route Map</h2>
+    <div id="mapContainer">
+      <!-- Map will be rendered here -->
+    </div>
+  </div>
+</div>

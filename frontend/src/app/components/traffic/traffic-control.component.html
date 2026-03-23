@@ -1,0 +1,29 @@
+<div>
+  <h1>Traffic Control Component</h1>
+  <div class="traffic-control">
+    <h2>Traffic Control Dashboard</h2>
+    <div class="ambulance-notifications">
+      <h3>Ambulance Notifications</h3>
+      <ul>
+        <li *ngFor="let notification of notifications">
+          <strong>Request ID:</strong> {{ notification.requestId }}<br>
+          <strong>Location:</strong> {{ notification.location }}<br>
+          <strong>Status:</strong> {{ notification.status }}
+        </li>
+      </ul>
+    </div>
+    <div class="video-upload">
+      <h3>Upload Traffic Video</h3>
+      <input type="file" (change)="onFileSelected($event)" />
+      <button (click)="uploadVideo()">Upload</button>
+    </div>
+    <div class="video-analysis">
+      <h3>Video Analysis Result</h3>
+      <div *ngIf="analysisResult">
+        <p>Analysis Status: <strong>{{ analysisResult.status }}</strong></p>
+        <p *ngIf="analysisResult.detected">Ambulance Detected: <span class="green">✔️</span></p>
+        <p *ngIf="!analysisResult.detected">Ambulance Detected: <span class="red">❌</span></p>
+      </div>
+    </div>
+  </div>
+</div>

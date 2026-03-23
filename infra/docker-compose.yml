@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/app:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:admin123@postgres:5432/green_corridor
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+      - MINIO_URL=http://minio:9000
+    depends_on:
+      - postgres
+      - rabbitmq
+      - minio
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/src:/app/src
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:18.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=green_corridor
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - ./infra/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+
+  minio:
+    image: minio/minio
+    command: server /data
+    ports:
+      - "9000:9000"
+    environment:
+      - MINIO_ACCESS_KEY=minio
+      - MINIO_SECRET_KEY=minio123
+    volumes:
+      - minio_data:/data
+    depends_on:
+      - backend
+
+  celery:
+    build:
+      context: ./services/celery-worker
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/app:/app
+    environment:
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+    depends_on:
+      - rabbitmq
+
+  yolov5:
+    build:
+      context: ./services/yolov5
+      dockerfile: Dockerfile
+    volumes:
+      - ./services/yolov5:/app
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  minio_data:
